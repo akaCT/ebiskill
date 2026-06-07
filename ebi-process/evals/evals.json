@@ -1,0 +1,23 @@
+{
+  "skill_name": "ebi-process",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just finished writing a landing page for our new product launch. EBI this — here's the HTML file at /tmp/landing-page.html",
+      "expected_output": "Should run the full EBI process: Enjoyed section identifying strengths, 7-12 improvements with impact/effort ratings, propose and confirm, then implement and recurse",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "We just deployed our API documentation. What would you recommend to make it even better now?",
+      "expected_output": "Should trigger EBI skill, start with what's working in the docs, then generate specific actionable improvements across clarity, completeness, examples, and developer experience",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Deep EBI on this presentation — I want to really push the quality. It's for our investor meeting next week.",
+      "expected_output": "Should use Deep Mode: 12-15 improvements per round, 4-5 rounds, push into innovation and delight dimensions, but respect quality gates throughout",
+      "files": []
+    }
+  ]
+}
