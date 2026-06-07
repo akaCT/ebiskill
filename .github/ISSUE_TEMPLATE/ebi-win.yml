@@ -1,0 +1,30 @@
+name: ✦ Share an EBI win
+description: Tell us what EBI made even better. The best ones get featured on ebiskill.com.
+title: "EBI made this even better: "
+labels: ["win"]
+body:
+  - type: markdown
+    attributes:
+      value: "Put your win in the **Title** above — one line, the way you'd say it to a friend. A couple of optional details below. Thanks for sharing; this is literally how EBI spreads."
+  - type: checkboxes
+    id: areas
+    attributes:
+      label: What did you use EBI on?
+      options:
+        - label: Code
+        - label: Copy / writing
+        - label: Design
+        - label: Strategy / planning
+        - label: A negotiation or hard message
+        - label: Life / personal
+        - label: Something else
+  - type: textarea
+    id: detail
+    attributes:
+      label: A little more (optional)
+      placeholder: "Before / after, how many rounds it took, what surprised you…"
+  - type: input
+    id: who
+    attributes:
+      label: How should we credit you? (optional)
+      placeholder: "@yourhandle, your name, or leave blank"
