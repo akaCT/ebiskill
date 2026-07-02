@@ -1,0 +1,25 @@
+{
+  "skill": "ebi-process",
+  "kind": "confirmatory",
+  "scenario": "You are running Orchestrated Mode on a shipped pricing-calculator page (customer-facing, money). Walk through, step by step, how you pick the mode and round budget, and state exactly when a model:opus reviewer joins and how you know the round is clean. Then: it is round 6 and the last round found only Low findings. State the exact rule for whether you stop or continue.",
+  "decision_point": "Stakes-to-mode table row for a customer-facing money surface; opus seat join timing (DEEP round 4+); clean-round stop rule at round 6 with only Low findings",
+  "pass_rule": "Walk-through cites the exact rule, table row, or threshold from the file at each material decision point; quoting the file's own escalation-floor language counts as PASS.",
+  "fail_rule": "Assumption language ('I'll assume', 'unclear whether'), a question addressed to the user, or a chosen action contradicting a rule in the file.",
+  "before_after": {
+    "baseline_behavior": "The pre-upgrade baseline (commit 371533a) has no 'Stakes-to-mode table', no explicit production/money/customer trigger for DEEP mode, and no orchestration-specific convergence rule at all: Orchestrated Mode existed but its stop conditions were just the generic base-mode 'When to stop' list (user says stop, all-Low round, 'you genuinely cannot identify meaningful improvements (be honest about this)', or five rounds completed with a suggestion to continue). There is also no rule anywhere about WHEN an opus critic seat joins; critics are simply '2 critic agents (Sonnet)' with no model-tier escalation language at all, and no data-fidelity third-seat trigger.",
+    "upgraded_behavior": "The upgraded text adds a named Stakes-to-mode table that mechanically maps 'production/money/customer surfaces' to DEEP/cap-8, an explicit 'from round 4 onward, one of the two critic seats runs at model: opus' rule, an explicit orchestration-only convergence rule ('stop on a clean round... on the mode's round cap, or on thrash') that supersedes the generic base rule under orchestration ('Round caps are HARD under orchestration... The base suggest-stopping condition does not apply'), and a data-fidelity third-seat trigger tied to whether the work transforms data.",
+    "judgment_points_closed": [
+      "Which mode applies to a given artifact (previously the agent had to eyeball 'is this important enough for Deep' with no named signal list; now a literal table row names 'production/money/customer surfaces')",
+      "Whether/when a stronger reviewer model joins a DEEP round (previously no escalation mechanism existed in Orchestrated Mode at all)",
+      "Whether an all-Low round at round 6 of 8 must keep going to reach the cap versus stop immediately (previously would have fallen back to the generic base rule's vaguer 'be honest about this' / suggest-stopping-but-offer-to-continue language, which is advisory rather than a hard stop)",
+      "Whether the base mode's soft 'suggest stopping, offer to continue' language even applies under orchestration (previously ambiguous since Orchestrated Mode didn't override it; now explicitly stated it does not apply, the director stops full stop)",
+      "Whether a third critic seat is needed when data is embedded/transformed (previously no such seat existed in the critic-count language at all)"
+    ]
+  },
+  "result": {
+    "run_date": "2026-07-02",
+    "model": "claude-sonnet-5",
+    "verdict": "PASS",
+    "evidence": "Decision point: \"shipped pricing-calculator page, customer-facing, money\" -> mode/round-budget pick. Exact rule applied: the Orchestrated Mode \"Stakes-to-mode table\" row \"Ship gates and production/money/customer surfaces | DEEP | 8, walking the Depth Ladder, until only Low remains\" (SKILL.md line 286). Opus-join rule applied verbatim: \"DEEP mode only: from round 4 onward, one of the two (or three) critic seats runs at model: opus instead of sonnet; keep the other seat(s) at sonnet\" (line 288). Clean-round rule applied verbatim: \"Convergence: stop on a clean round (no High or Medium findings), on the mode's round cap, or on thrash\" (line 293), reinforced by line 295's \"Deep at 8 (or earlier on a clean round)\". Round-6-Low-only decision point resolved directly by that same convergence rule: a Low-only round is a clean round by definition, so it stops regardless of not having reached the round-8 cap. No line in my walk-through contains assumption language, no question was addressed to the user, and the stop-at-6 action is directly licensed (not contradicted) by the file's stated convergence rule."
+  }
+}

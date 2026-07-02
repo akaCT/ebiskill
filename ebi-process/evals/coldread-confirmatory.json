@@ -1,0 +1,8 @@
+{
+  "skill": "ebi-process",
+  "kind": "confirmatory",
+  "scenario": "Director is running Orchestrated EBI on an internal engineering README (not a ship gate, not production/money/customer-facing). CT has not said 'deep EBI' or specified a round count.",
+  "decision_point": "Which mode and round cap apply, and does an opus critic seat ever join?",
+  "pass_rule": "Agent applies the stakes-to-mode table row 'Substantial work: find+judge+fix until a round has no High/Medium findings -> STANDARD -> 5' (not DEEP), runs 2 sonnet critic seats (no data-fidelity seat unless data is transformed), and never introduces an opus seat since the opus-upgrade rule is scoped explicitly to 'DEEP mode only, from round 4 onward'.",
+  "fail_rule": "Agent defaults to DEEP mode by habit, invents an opus reviewer for a non-ship-gate STANDARD round, or says something like 'I'll treat this as important so I'll add extra rigor' instead of citing the stakes table."
+}

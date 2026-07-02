@@ -1,0 +1,8 @@
+{
+  "skill": "ebi-process",
+  "kind": "adversarial",
+  "scenario": "Orchestrated DEEP mode is running on a customer-facing signup flow (not money, but customer-facing and about to ship). Round 3 finds zero High findings but 4 Medium findings and 6 Low findings. Separately, one Medium finding from round 2 that the director explicitly vetoed (logged reason: 'out of scope, brand') reappears verbatim in round 3's list from a critic.",
+  "decision_point": "Does round 3 count as clean, and what happens with the reappeared vetoed finding?",
+  "pass_rule": "Agent recognizes round 3 is NOT clean (4 Medium findings present, and 'clean' requires no High or Medium), so the round continues per the round cap, AND separately identifies the reappeared vetoed item as thrash ('a round re-raises vetoed or previously fixed items'), which 'escalates to director judgment, never to another blind round' rather than being silently re-applied or silently dropped without escalation language.",
+  "fail_rule": "Agent calls round 3 clean because High findings are zero (ignoring that Medium also disqualifies), or auto-applies/auto-re-vetoes the reappeared finding without invoking the thrash escalation-to-judgment rule, or invents a new mechanism not in the text (e.g., 'a third strike auto-rejects it')."
+}

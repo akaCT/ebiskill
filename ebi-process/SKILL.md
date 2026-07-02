@@ -1,6 +1,9 @@
 ---
 name: ebi-process
 description: "Recursive improvement process. Triggers: 'EBI', 'make it better', 'improve this', 'iterate on this'. Use proactively after completing significant work."
+upgraded: 2026-07-02
+doctrine: v1.1
+verified_commit: 247ac7cbec7bb4ea9e5e79d0613a8295a2fd49cd
 ---
 
 # EBI - Even Better If
@@ -60,67 +63,7 @@ Choose a theme appropriate to the current round number and context. Early rounds
 
 **Domain-Specific Lens Libraries:**
 
-Select lenses from the domain that fits the work. These replace the generic dimension checklist.
-
-**Design/Visual Lenses:**
-- Visual Hierarchy Audit
-- Emotional Color Psychology
-- Micro-interaction Polish
-- Responsive Stress Test
-- Accessibility Deep Dive
-- Animation Choreography
-- Whitespace & Breathing Room
-- Brand System Compliance
-- Premium Detail Layer (textures, shadows, gradients)
-- Competitive Benchmark ("Would this win an Awwward?")
-
-**Copy/Content Lenses:**
-- Voice Consistency Audit
-- Data & Evidence Injection
-- Billboard Moment Creation (phrases that work at 80px)
-- Authority & Credibility Layer
-- Emotional Journey Mapping (skeptic to believer)
-- Founder/Authentic Voice Integration
-- Structural Rhythm (sentence length variation, section pacing)
-- Specificity Pass (replace vague claims with concrete examples)
-- Call-to-Action Clarity
-- Reading Level & Accessibility
-
-**Code/Technical Lenses:**
-- Error Path Audit
-- Performance Profiling
-- API Surface Review
-- Test Coverage Gaps
-- Security Boundary Check
-- Dependency Health
-- Developer Experience (would a new dev understand this?)
-- Edge Case Enumeration
-- Observability & Debugging
-- Simplification Pass (delete code)
-
-**Strategy/Planning Lenses:**
-- Assumption Stress Test
-- Risk & Mitigation Mapping
-- Stakeholder Perspective Rotation
-- Resource & Timeline Reality Check
-- Measurement & Success Criteria
-- Communication Clarity Audit
-- Alternative Approach Exploration
-- Dependency Chain Analysis
-- Second-Order Effects ("then what happens?")
-- Historical Pattern Match
-
-**Plans/Specifications Lenses:**
-- Completeness Gap Analysis
-- Implementation Order Optimization
-- Parallel Work Identification
-- Integration Point Verification
-- Scope Creep Detection
-- Technical Feasibility Audit
-- User Story Traceability
-- Rollback & Recovery Planning
-- Cross-Team Impact Assessment
-- Definition of Done Clarity
+Select lenses from the domain that fits the work. These replace the generic dimension checklist. Full lens lists (Design/Visual, Copy/Content, Code/Technical, Strategy/Planning, Plans/Specifications) live in references/lens-libraries.md; load that file when picking a round's lens.
 
 For each round, announce the theme: "**Round N - [Theme Name]**: [One-line description of what this lens examines]"
 
@@ -169,7 +112,7 @@ Present the improvements to the user in a clear format:
 Shall I proceed with these improvements?
 ```
 
-Wait for the user to confirm, adjust, or select which improvements to implement.
+Wait for the user to confirm, adjust, or select which improvements to implement. (Quick, Autonomous, and Orchestrated modes skip this wait, and so does ANY run inside a subagent: a subagent has no user, so it applies its mode's default and reports what it did instead of pausing.)
 
 ### Phase 4: Implement
 
@@ -208,7 +151,7 @@ Present each new round the same way (What's Working > Even Better If > Propose).
 **When to stop:**
 - The user says "this is good" or "let's move on"
 - The improvements in the latest round are all 🟢 Low impact
-- You genuinely cannot identify meaningful improvements (be honest about this)
+- Fewer than 3 improvements survive the diverge-then-converge cut (see Phase 2's "Diverge Then Converge") at Medium-or-above impact. ("Be honest about this" is a secondary sanity note, not the operative rule: apply the count, don't just self-assess.)
 - Five rounds have been completed (suggest stopping, but offer to continue)
 
 **Cumulative Impact Tracking**: After each round, maintain a running total so the user sees the compounding value:
@@ -235,26 +178,36 @@ The EBI process doesn't just use different questions per domain - it uses differ
 
 **Code/Technical**:
 - Focus: performance, readability, error handling, edge cases, test coverage, API design
-- **After each round**: Run tests. Check for regressions. If tests fail, the round is not complete.
+- DONE MEANS: build passes, tests pass, no new lint errors, no regression on what Phase 1 flagged as working.
+- VERIFY: run the project's existing test command (from package.json, Makefile, or CI config) and the build command; if neither exists, run the changed file through its interpreter or compiler directly.
+- EVIDENCE: paste the exit code and the last 10 lines of test/build output. If tests fail, the round is not complete.
 - **Prototype Bold, Ship Safe**: Try one aggressive refactor or optimization per session. If it breaks things, revert immediately.
 
 **Writing/Content**:
 - Focus: clarity, flow, voice, structure, audience fit, emotional impact
-- **After each round**: Read the output mentally as the target audience. Check for redundancy. Count the words - did improvements add bloat?
+- DONE MEANS: word count is flat or intentionally changed (no accidental bloat), redundancy check passes, voice matches Phase 1's "What's Working" observations.
+- VERIFY: run `wc -w` on the file before and after the round; if the project has a readability or style linter (e.g. Vale, a house style script), run it. If none exists, state "no automated readability check available" rather than skipping the line.
+- EVIDENCE: paste the before/after word count and, if applicable, the linter's pass/fail output.
 - **Billboard Test**: Can any phrase work at 80px type? If not, the copy may lack punch.
 
 **Design/Visual**:
 - Focus: hierarchy, contrast, spacing, consistency, emotional response, accessibility, responsiveness
-- **After each round**: Screenshot and review at actual size. Check responsive behavior. Squint test (step back - does the hierarchy hold?).
+- DONE MEANS: a screenshot exists at actual size for at least the primary breakpoint, responsive behavior is checked at mobile/tablet/desktop, and the squint test (step back - does the hierarchy hold?) passes.
+- VERIFY: take a screenshot (or use the project's screenshot tool/preview harness) at each breakpoint the work targets; note the tool and dimensions used.
+- EVIDENCE: attach or reference the screenshot file paths and the breakpoints covered.
 - **Prototype Bold, Ship Safe**: Mock up one adventurous idea per round before committing. A rough sketch of the right direction beats a polished version of the wrong one.
 
 **Presentations**:
 - Focus: narrative arc, visual impact, information density, pacing, memorability, call-to-action clarity
-- **After each round**: View as an audience member seeing this for the first time. Time the reading pace. Is the call-to-action unmissable?
+- DONE MEANS: the deck reads coherently start to finish for a first-time viewer, and the call-to-action is unmissable.
+- VERIFY: read or view the deck end to end in presentation order (not editing order); time the read and note where attention would drop.
+- EVIDENCE: state the read time and name the slide/section where the call-to-action appears.
 
 **Strategy/Planning**:
 - Focus: assumptions, risks, alternatives, measurability, alignment, simplicity, communication clarity
-- **After each round**: Can someone who wasn't in the room understand this and act on it? Pre-mortem: "It's 6 months later and this failed. Why?"
+- DONE MEANS: someone who wasn't in the room can read the plan and act on it without follow-up questions, and a pre-mortem has been run.
+- VERIFY: run the pre-mortem explicitly: "It's 6 months later and this failed. Why?" and write down at least 2 concrete failure paths.
+- EVIDENCE: paste the pre-mortem failure paths identified and whether each is now mitigated or accepted as a known risk.
 
 ## Quality Gates - The "Never Ship Worse" Principle
 
@@ -303,6 +256,7 @@ When the user says "quick EBI" or time is limited:
 - One round only
 - 3-5 improvements, highest impact only
 - Implement immediately, no confirmation step needed
+- Phase 5 (Recurse) does NOT execute in Quick Mode: the process ends after the Phase 4 quality-gate check. One round means exactly one.
 
 ### Autonomous Mode
 When the user says "EBI this autonomously" or "keep improving until it's great":
@@ -320,6 +274,29 @@ When EBI is applied to **ideas, plans, or strategies** (not finished work):
 - The Breakthrough Moment is more likely in Ideation Mode - actively seek the reframe that makes the idea 10x better
 - Quality Gates shift: instead of "does it work?" ask "is this the *right thing* to build?"
 
+### Orchestrated Mode (PM Mode integration)
+When running under PM Mode (global CLAUDE.md) or inside /goal, EBI distributes across the model tiers instead of running in one context:
+- The main loop (Fable) is the EBI DIRECTOR: it picks the mode and round budget by stakes, names each round's theme from the Progressive Depth Ladder, adjudicates findings, enforces the Quality Gates, and owns synthesis. Direction and judgment are the only Fable-priced steps.
+- **Stakes-to-mode table** (source of truth for the mode/round-budget pick; matches CLAUDE.md rule 8 verbatim so this skill is self-sufficient without cross-document recall):
+
+| Stakes signal | Mode | Round cap |
+|---|---|---|
+| Every builder/architect self-runs a Quick-mode round on its own artifact before returning | MICRO | Not counted against any cap |
+| Substantial work: find (critics, round theme as lens) + judge (main loop) + fix (builders) until a round has no High/Medium findings | STANDARD | 5 |
+| Ship gates and production/money/customer surfaces | DEEP | 8, walking the Depth Ladder, until only Low remains |
+
+- **DEEP mode only**: from round 4 onward, one of the two (or three) critic seats runs at model: opus instead of sonnet; keep the other seat(s) at sonnet. This is a floor, not a specific-model mandate: a stronger available model already satisfies the step.
+- Idea generation is delegated: 2 `critic` agents (Sonnet; add a third data-fidelity seat when the work embeds or transforms data) each take the round's theme as their assigned lens, drawing from the Domain-Specific Lens Libraries (references/lens-libraries.md). Their BLOCKER/MAJOR/MINOR verdicts map to High/Medium/Low impact.
+- Implementation is delegated to `builder` agents (Sonnet). The "never ship worse" verification runs on the worker or a `scout`.
+- Workers additionally self-run Quick Mode on their own artifacts before returning (micro-EBI), so orchestrated rounds start from already-polished inputs.
+- Rounds 2+ are delta-focused: re-examine the changed surface plus a regression check against the round-1 "What's Working" list, not the whole artifact from scratch.
+- Convergence: stop on a clean round (no High or Medium findings), on the mode's round cap, or on thrash (a round re-raises vetoed or previously fixed items). Thrash escalates to director judgment, never to another blind round.
+- Discretion gate: High and Medium findings auto-apply by default (CT's standing directive), but the director adjudicates every round's list first and may veto any finding with a one-line logged reason (violates intent, scope, brand, or the never-ship-worse gate). Vetoes appear in the round summary.
+- Round caps are HARD under orchestration: Standard stops at 5 rounds, Deep at 8 (or earlier on a clean round). The base "suggest stopping, but offer to continue" condition does not apply; the director stops, full stop.
+- Workers NEVER pause for confirmation: Phase 3's wait is replaced by the director's adjudication in orchestrated rounds and skipped entirely inside worker self-EBI (Quick Mode).
+- Critics invoke this skill for REFERENCE ONLY (Depth Ladder and lens vocabulary). They do not execute its phases, implement nothing, and keep their own adversarial output format.
+- Micro rounds (worker self-EBI) do not count toward the round caps; they are per-artifact polish. A full deep gate intentionally totals dozens of Sonnet-tier invocations across critics, builders, and self-rounds; the director announces the projected scale before starting one.
+
 ### Specified Round Count
 When the user says "run N EBI rounds" or "do 5 rounds of EBI":
 - Honor the exact count requested - don't stop early, don't suggest stopping
@@ -335,7 +312,7 @@ When the user says "run N EBI rounds" or "do 5 rounds of EBI":
 
 **Thinking Tools:** Inversion, Audience Rotation, First Principles, Evidence Over Opinion, Constraint Flip, 10x Test, Remove to Improve
 
-**Modes:** Standard (3-5), Deep (5-8), Quick (1), Autonomous (up to 5), Ideation (ideas not artifacts), Specified (honor exact count)
+**Modes:** Standard (3-5), Deep (5-8), Quick (1), Autonomous (up to 5), Ideation (ideas not artifacts), Orchestrated (distributed across PM Mode tiers), Specified (honor exact count)
 
 **Every round must have:** A named theme, 7-12 improvements (diverge 15+ then converge), impact/effort ratings, at least 2 thinking tools
 
